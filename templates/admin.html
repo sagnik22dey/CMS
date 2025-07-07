@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Dashboard</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Manrope%3Awght%40400%3B500%3B700%3B800&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-50: #f0fdf4;
+        --primary-100: #dcfce7;
+        --primary-200: #bbf7d0;
+        --primary-300: #86efac;
+        --primary-400: #4ade80;
+        --primary-500: #22c55e;
+        --primary-600: #16a34a;
+        --primary-700: #15803d;
+        --primary-800: #166534;
+        --primary-900: #14532d;
+        --primary-950: #052e16;
+      }
+      body {
+        font-family: "Manrope", "Noto Sans", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-black border-r border-gray-800 flex flex-col">
+        <div class="p-6">
+          <h1 class="text-2xl font-bold">Admin Panel</h1>
+        </div>
+        <nav class="flex-1 px-4 py-2">
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg bg-gray-900 text-[var(--primary-400)]"
+            href="#"
+          >
+            <svg
+              fill="currentColor"
+              height="24"
+              viewBox="0 0 256 256"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
+              ></path>
+            </svg>
+            <span>Dashboard</span>
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-2 mt-2 rounded-lg hover:bg-gray-900"
+            href="#"
+          >
+            <svg
+              fill="currentColor"
+              height="24"
+              viewBox="0 0 256 256"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"
+              ></path>
+            </svg>
+            <span>Developers</span>
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-2 mt-2 rounded-lg hover:bg-gray-900"
+            href="#"
+          >
+            <svg
+              fill="currentColor"
+              height="24"
+              viewBox="0 0 256 256"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"
+              ></path>
+            </svg>
+            <span>Clients</span>
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-2 mt-2 rounded-lg hover:bg-gray-900"
+            href="#"
+          >
+            <svg
+              fill="currentColor"
+              height="24"
+              viewBox="0 0 256 256"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"
+              ></path>
+            </svg>
+            <span>Projects</span>
+          </a>
+        </nav>
+        <div class="px-4 py-2 mt-auto">
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-900"
+            href="#"
+          >
+            <svg
+              fill="currentColor"
+              height="24"
+              viewBox="0 0 256 256"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"
+              ></path>
+            </svg>
+            <span>Settings</span>
+          </a>
+        </div>
+      </aside>
+      <main class="flex-1 p-8 bg-gray-950">
+        <h1 class="text-4xl font-bold">Dashboard</h1>
+        <div class="mt-8">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">Developers</h2>
+            <button
+              id="add-developer-btn"
+              class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full"
+            >
+              Add Developer
+            </button>
+          </div>
+          <div class="bg-gray-900 rounded-xl overflow-hidden">
+            <table class="w-full text-left">
+              <thead class="bg-gray-800">
+                <tr>
+                  <th class="p-4">Name</th>
+                  <th class="p-4">Email</th>
+                  <th class="p-4">Skills</th>
+                  <th class="p-4">Status</th>
+                  <th class="p-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-gray-800">
+                  <td class="p-4">Ethan Carter</td>
+                  <td class="p-4 text-gray-400">ethan.carter@example.com</td>
+                  <td class="p-4 text-gray-400">React, Node.js</td>
+                  <td class="p-4">
+                    <span
+                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
+                      >Active</span
+                    >
+                  </td>
+                  <td class="p-4">
+                    <button
+                      class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button class="text-red-500 hover:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-t border-gray-800">
+                  <td class="p-4">Olivia Bennett</td>
+                  <td class="p-4 text-gray-400">olivia.bennett@example.com</td>
+                  <td class="p-4 text-gray-400">Python, Django</td>
+                  <td class="p-4">
+                    <span
+                      class="px-3 py-1 text-sm font-medium rounded-full bg-gray-700 text-gray-300"
+                      >Inactive</span
+                    >
+                  </td>
+                  <td class="p-4">
+                    <button
+                      class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button class="text-red-500 hover:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-t border-gray-800">
+                  <td class="p-4">Noah Thompson</td>
+                  <td class="p-4 text-gray-400">noah.thompson@example.com</td>
+                  <td class="p-4 text-gray-400">Java, Spring</td>
+                  <td class="p-4">
+                    <span
+                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
+                      >Active</span
+                    >
+                  </td>
+                  <td class="p-4">
+                    <button
+                      class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button class="text-red-500 hover:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="mt-12">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">Clients</h2>
+            <button
+              id="add-client-btn"
+              class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full"
+            >
+              Add Client
+            </button>
+          </div>
+          <div class="bg-gray-900 rounded-xl overflow-hidden">
+            <table class="w-full text-left">
+              <thead class="bg-gray-800">
+                <tr>
+                  <th class="p-4">Name</th>
+                  <th class="p-4">Contact</th>
+                  <th class="p-4">Projects</th>
+                  <th class="p-4">Status</th>
+                  <th class="p-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-gray-800">
+                  <td class="p-4">Acme Corp</td>
+                  <td class="p-4 text-gray-400">contact@acmecorp.com</td>
+                  <td class="p-4 text-gray-400">3</td>
+                  <td class="p-4">
+                    <span
+                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
+                      >Active</span
+                    >
+                  </td>
+                  <td class="p-4">
+                    <button
+                      class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button class="text-red-500 hover:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-t border-gray-800">
+                  <td class="p-4">Beta Inc</td>
+                  <td class="p-4 text-gray-400">contact@betainc.com</td>
+                  <td class="p-4 text-gray-400">1</td>
+                  <td class="p-4">
+                    <span
+                      class="px-3 py-1 text-sm font-medium rounded-full bg-gray-700 text-gray-300"
+                      >Inactive</span
+                    >
+                  </td>
+                  <td class="p-4">
+                    <button
+                      class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button class="text-red-500 hover:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr class="border-t border-gray-800">
+                  <td class="p-4">Gamma Ltd</td>
+                  <td class="p-4 text-gray-400">contact@gammaltd.com</td>
+                  <td class="p-4 text-gray-400">2</td>
+                  <td class="p-4">
+                    <span
+                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
+                      >Active</span
+                    >
+                  </td>
+                  <td class="p-4">
+                    <button
+                      class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button class="text-red-500 hover:text-red-400">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- Add Developer Modal -->
+    <div id="add-developer-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+      <div class="relative flex flex-col bg-[#111111] dark group/design-root overflow-hidden rounded-2xl border border-neutral-800 w-full max-w-lg mx-4">
+        <div class="p-8">
+          <div class="flex justify-between items-start">
+            <h2 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Add Developer</h2>
+            <button id="close-modal-btn" class="text-neutral-500 hover:text-white">
+              <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
+              </svg>
+            </button>
+          </div>
+          <p class="text-neutral-400 mt-2">Enter the details below to add a new developer to the system.</p>
+          <div class="mt-8 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <label class="flex flex-col">
+                <p class="text-white text-sm font-medium leading-normal pb-2">Name</p>
+                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. John Doe" value="" />
+              </label>
+              <label class="flex flex-col">
+                <p class="text-white text-sm font-medium leading-normal pb-2">Job Role</p>
+                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. Frontend Developer" value="" />
+              </label>
+            </div>
+            <label class="flex flex-col">
+              <p class="text-white text-sm font-medium leading-normal pb-2">Image URL</p>
+              <div class="flex items-center">
+                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border-t border-b border-l border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="https://example.com/image.jpg" value="" />
+                <button class="flex items-center justify-center rounded-r-lg h-12 px-4 bg-neutral-800 text-neutral-400 hover:bg-neutral-700 hover:text-white border-t border-b border-r border-neutral-800">
+                  Upload
+                </button>
+              </div>
+            </label>
+            <label class="flex flex-col">
+              <p class="text-white text-sm font-medium leading-normal pb-2">Technologies</p>
+              <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. React, Tailwind CSS, Node.js" value="" />
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <label class="flex flex-col">
+                <p class="text-white text-sm font-medium leading-normal pb-2">Joined Since</p>
+                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" type="date" value="" />
+              </label>
+              <label class="flex flex-col">
+                <p class="text-white text-sm font-medium leading-normal pb-2">Rating</p>
+                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" max="5" min="1" placeholder="1-5" type="number" value="" />
+              </label>
+            </div>
+            <label class="flex flex-col">
+              <p class="text-white text-sm font-medium leading-normal pb-2">Current Projects</p>
+              <textarea class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-24 placeholder:text-neutral-500 p-4 text-sm font-normal" placeholder="List current projects separated by commas"></textarea>
+            </label>
+            <label class="flex flex-col">
+              <p class="text-white text-sm font-medium leading-normal pb-2">Completed Projects</p>
+              <textarea class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-24 placeholder:text-neutral-500 p-4 text-sm font-normal" placeholder="List completed projects separated by commas"></textarea>
+            </label>
+          </div>
+          <div class="flex justify-end gap-4 pt-8">
+            <button id="cancel-btn" class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-neutral-800 text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-neutral-700">
+              <span class="truncate">Cancel</span>
+            </button>
+            <button class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-[#53d22c] text-[#111111] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-500">
+              <span class="truncate">Add Developer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Developer Modal -->
+    <div id="edit-developer-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="w-full max-w-md rounded-2xl bg-[#111111] p-8 shadow-2xl">
+            <div class="mb-8 text-center">
+                <h1 class="text-3xl font-bold text-white">Edit Developer</h1>
+                <p class="text-gray-400">Update the details of the selected developer.</p>
+            </div>
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="name">Name</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="name" name="name" placeholder="e.g., John Doe" type="text" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="email">Email</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="email" name="email" placeholder="e.g., john.doe@example.com" type="email" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="phone">Phone</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="phone" name="phone" placeholder="e.g., +1 234 567 890" type="tel" />
+                </div>
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300" for="role">Role</label>
+                        <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="role" name="role" placeholder="e.g., Frontend Developer" type="text" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300" for="hourly-rate">Hourly Rate ($)</label>
+                        <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="hourly-rate" name="hourly-rate" placeholder="e.g., 50" type="number" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="status">Status</label>
+                    <select class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white focus:border-green-500 focus:ring-green-500" id="status" name="status">
+                        <option>Active</option>
+                        <option>Inactive</option>
+                        <option>On Leave</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-end space-x-4 pt-4">
+                    <button id="edit-cancel-btn" class="rounded-full px-6 py-2 text-sm font-semibold text-gray-300 transition-colors hover:bg-gray-800" type="button">Cancel</button>
+                    <button class="rounded-full bg-[#53d22c] px-6 py-2 text-sm font-bold text-black transition-transform hover:scale-105" type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+      // Add Developer Modal
+      const addDeveloperBtn = document.getElementById('add-developer-btn');
+      const addDeveloperModal = document.getElementById('add-developer-modal');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const cancelBtn = document.getElementById('cancel-btn');
+
+      if (addDeveloperBtn) {
+        addDeveloperBtn.addEventListener('click', () => {
+            addDeveloperModal.classList.remove('hidden');
+        });
+      }
+
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            addDeveloperModal.classList.add('hidden');
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            addDeveloperModal.classList.add('hidden');
+        });
+      }
+
+      // Edit Developer Modal
+      const editDeveloperBtns = document.querySelectorAll('.edit-developer-btn');
+      const editDeveloperModal = document.getElementById('edit-developer-modal');
+      const editCancelBtn = document.getElementById('edit-cancel-btn');
+
+      if (editDeveloperBtns) {
+          editDeveloperBtns.forEach(btn => {
+              btn.addEventListener('click', () => {
+                  editDeveloperModal.classList.remove('hidden');
+              });
+          });
+      }
+
+      if (editCancelBtn) {
+          editCancelBtn.addEventListener('click', () => {
+              editDeveloperModal.classList.add('hidden');
+          });
+      }
+    </script>
+    <!-- Add Client Modal -->
+    <div id="add-client-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-[#101010] p-8 rounded-2xl w-full max-w-md mx-4 relative">
+            <button id="close-client-modal-btn" class="absolute top-4 right-4 text-neutral-500 hover:text-white">
+              <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
+              </svg>
+            </button>
+            <h1 class="text-2xl font-bold mb-6 text-center">Add New Client</h1>
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2" for="name">Name</label>
+                    <input class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" id="name" placeholder="Client Name" type="text" />
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-16 h-16 rounded-full bg-[#1a1a1a] border border-[#333333] flex-shrink-0"></div>
+                    <div class="flex-grow">
+                        <label class="block text-sm font-medium text-gray-400 mb-2" for="image">Image</label>
+                        <input class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" id="image" placeholder="Image URL" type="text" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2" for="joined_since">Joined Since</label>
+                    <input class="form-input w-full rounded-lg h-12 px-4 text-white bg-[#1a1a1a] border border-[#333333]" id="joined_since" type="date" />
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2" for="projects">No. of Projects</label>
+                        <input class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" id="projects" placeholder="0" type="number" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2" for="rating">Rating</label>
+                        <div class="flex items-center space-x-1">
+                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
+                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
+                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
+                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
+                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end pt-4">
+                    <button class="w-full bg-white text-black font-bold h-12 rounded-lg hover:bg-gray-200 transition-colors" type="submit">
+                        Add Client
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const addClientBtn = document.getElementById('add-client-btn');
+        const addClientModal = document.getElementById('add-client-modal');
+        const closeClientModalBtn = document.getElementById('close-client-modal-btn');
+
+        if (addClientBtn) {
+            addClientBtn.addEventListener('click', () => {
+                addClientModal.classList.remove('hidden');
+            });
+        }
+
+        if (closeClientModalBtn) {
+            closeClientModalBtn.addEventListener('click', () => {
+                addClientModal.classList.add('hidden');
+            });
+        }
+    </script>
+  </body>
+</html>
