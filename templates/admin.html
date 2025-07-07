@@ -11,6 +11,7 @@
       onload="this.rel='stylesheet'"
       rel="stylesheet"
     />
+    <link href="{{ url_for('static', filename='css/admin.css') }}" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style type="text/tailwindcss">
       :root {
@@ -39,6 +40,7 @@
         </div>
         <nav class="flex-1 px-4 py-2">
           <a
+            id="dashboard-link"
             class="flex items-center gap-3 px-4 py-2 rounded-lg bg-gray-900 text-[var(--primary-400)]"
             href="#"
           >
@@ -56,6 +58,7 @@
             <span>Dashboard</span>
           </a>
           <a
+            id="developers-link"
             class="flex items-center gap-3 px-4 py-2 mt-2 rounded-lg hover:bg-gray-900"
             href="#"
           >
@@ -73,6 +76,7 @@
             <span>Developers</span>
           </a>
           <a
+            id="clients-link"
             class="flex items-center gap-3 px-4 py-2 mt-2 rounded-lg hover:bg-gray-900"
             href="#"
           >
@@ -90,6 +94,7 @@
             <span>Clients</span>
           </a>
           <a
+            id="projects-link"
             class="flex items-center gap-3 px-4 py-2 mt-2 rounded-lg hover:bg-gray-900"
             href="#"
           >
@@ -128,252 +133,303 @@
         </div>
       </aside>
       <main class="flex-1 p-8 bg-gray-950">
-        <h1 class="text-4xl font-bold">Dashboard</h1>
-        <div class="mt-8">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold">Developers</h2>
-            <button
-              id="add-developer-btn"
-              class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full"
-            >
-              Add Developer
-            </button>
-          </div>
-          <div class="bg-gray-900 rounded-xl overflow-hidden">
-            <table class="w-full text-left">
-              <thead class="bg-gray-800">
-                <tr>
-                  <th class="p-4">Name</th>
-                  <th class="p-4">Email</th>
-                  <th class="p-4">Skills</th>
-                  <th class="p-4">Status</th>
-                  <th class="p-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-t border-gray-800">
-                  <td class="p-4">Ethan Carter</td>
-                  <td class="p-4 text-gray-400">ethan.carter@example.com</td>
-                  <td class="p-4 text-gray-400">React, Node.js</td>
-                  <td class="p-4">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="p-4">
-                    <button
-                      class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
-                    >
-                      Edit
-                    </button>
-                    <button class="text-red-500 hover:text-red-400">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr class="border-t border-gray-800">
-                  <td class="p-4">Olivia Bennett</td>
-                  <td class="p-4 text-gray-400">olivia.bennett@example.com</td>
-                  <td class="p-4 text-gray-400">Python, Django</td>
-                  <td class="p-4">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-full bg-gray-700 text-gray-300"
-                      >Inactive</span
-                    >
-                  </td>
-                  <td class="p-4">
-                    <button
-                      class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
-                    >
-                      Edit
-                    </button>
-                    <button class="text-red-500 hover:text-red-400">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr class="border-t border-gray-800">
-                  <td class="p-4">Noah Thompson</td>
-                  <td class="p-4 text-gray-400">noah.thompson@example.com</td>
-                  <td class="p-4 text-gray-400">Java, Spring</td>
-                  <td class="p-4">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="p-4">
-                    <button
-                      class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
-                    >
-                      Edit
-                    </button>
-                    <button class="text-red-500 hover:text-red-400">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div id="dashboard-content">
+            <h1 class="text-4xl font-bold">Dashboard</h1>
+            <div class="mt-8">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Developers</h2>
+                <button
+                  id="add-developer-btn"
+                  class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full"
+                >
+                  Add Developer
+                </button>
+              </div>
+              <div class="bg-gray-900 rounded-xl overflow-hidden">
+                <table class="w-full text-left">
+                  <thead class="bg-gray-800">
+                    <tr>
+                      <th class="p-4">Name</th>
+                      <th class="p-4">Email</th>
+                      <th class="p-4">Skills</th>
+                      <th class="p-4">Status</th>
+                      <th class="p-4">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for developer in developers %}
+                    <tr class="border-t border-gray-800">
+                      <td class="p-4">{{ developer.name }}</td>
+                      <td class="p-4 text-gray-400">{{ developer.role }}</td>
+                      <td class="p-4 text-gray-400">{{ developer.tech }}</td>
+                      <td class="p-4">
+                        <span
+                          class="px-3 py-1 text-sm font-medium rounded-full {% if developer.status == 'Active' %}bg-green-900 text-green-300{% else %}bg-gray-700 text-gray-300{% endif %}"
+                          >{{ developer.status }}</span
+                        >
+                      </td>
+                      <td class="p-4">
+                        <button
+                          class="edit-developer-btn text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                          data-id="{{ developer.id }}"
+                          data-name="{{ developer.name }}"
+                          data-role="{{ developer.role }}"
+                          data-tech="{{ developer.tech }}"
+                          data-status="{{ developer.status }}"
+                        >
+                          Edit
+                        </button>
+                        <form action="{{ url_for('delete_developer', developer_id=developer.id) }}" method="POST" class="inline">
+                          <button type="submit" class="text-red-500 hover:text-red-400">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="mt-12">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Clients</h2>
+                <button
+                  id="add-client-btn"
+                  class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full"
+                >
+                  Add Client
+                </button>
+              </div>
+              <div class="bg-gray-900 rounded-xl overflow-hidden">
+                <table class="w-full text-left">
+                  <thead class="bg-gray-800">
+                    <tr>
+                      <th class="p-4">Name</th>
+                      <th class="p-4">Contact</th>
+                      <th class="p-4">Projects</th>
+                      <th class="p-4">Status</th>
+                      <th class="p-4">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for client in clients %}
+                    <tr class="border-t border-gray-800">
+                      <td class="p-4">{{ client.name }}</td>
+                      <td class="p-4 text-gray-400">{{ client.join_date }}</td>
+                      <td class="p-4 text-gray-400">{{ client.projects }}</td>
+                      <td class="p-4">
+                        <span
+                          class="px-3 py-1 text-sm font-medium rounded-full {% if client.status == 'Active' %}bg-green-900 text-green-300{% else %}bg-gray-700 text-gray-300{% endif %}"
+                          >{{ client.status }}</span
+                        >
+                      </td>
+                      <td class="p-4">
+                        <button
+                          class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                        >
+                          Edit
+                        </button>
+                        <form action="{{ url_for('delete_client', client_id=client.id) }}" method="POST" class="inline">
+                          <button type="submit" class="text-red-500 hover:text-red-400">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
         </div>
-        <div class="mt-12">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold">Clients</h2>
-            <button
-              id="add-client-btn"
-              class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full"
-            >
-              Add Client
-            </button>
-          </div>
-          <div class="bg-gray-900 rounded-xl overflow-hidden">
-            <table class="w-full text-left">
-              <thead class="bg-gray-800">
-                <tr>
-                  <th class="p-4">Name</th>
-                  <th class="p-4">Contact</th>
-                  <th class="p-4">Projects</th>
-                  <th class="p-4">Status</th>
-                  <th class="p-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-t border-gray-800">
-                  <td class="p-4">Acme Corp</td>
-                  <td class="p-4 text-gray-400">contact@acmecorp.com</td>
-                  <td class="p-4 text-gray-400">3</td>
-                  <td class="p-4">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="p-4">
+
+        <div id="developers-content" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Developers</h2>
+                <button id="add-developer-btn-2" class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full">
+                    Add Developer
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for developer in developers %}
+                <div class="bg-gray-900 rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-lg border border-gray-800">
+                    <form class="developer-card-form" method="POST" data-id="{{ developer.id }}">
+                        <div class="p-6">
+                            <div class="flex items-center gap-6">
+                                <img class="w-24 h-24 rounded-full object-cover border-4 border-gray-800" src="{{ developer.image if developer.image else 'https://via.placeholder.com/150' }}" alt="{{ developer.name }}">
+                                <div>
+                                    <input name="name" value="{{ developer.name }}" class="text-2xl font-bold text-white bg-transparent border-none w-full" readonly>
+                                    <input name="role" value="{{ developer.role }}" class="text-gray-400 bg-transparent border-none w-full" readonly>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <h4 class="font-bold text-lg text-white mb-2">Details</h4>
+                                <div class="text-sm text-gray-400 space-y-2">
+                                    <p><span class="font-semibold text-gray-300">Skills:</span> <input name="tech" value="{{ developer.tech }}" class="text-gray-400 bg-transparent border-none w-full" readonly></p>
+                                    <p><span class="font-semibold text-gray-300">Completed Projects:</span> <input name="completed_projects" value="{{ developer.completed_projects }}" class="text-gray-400 bg-transparent border-none w-full" readonly type="number"></p>
+                                    <p><span class="font-semibold text-gray-300">Rating:</span> <input name="rating" value="{{ developer.rating }}" class="text-gray-400 bg-transparent border-none w-1/2" readonly type="number" max="5" min="1">/5</p>
+                                    <p><span class="font-semibold text-gray-300">Clients:</span> <input name="clients" value="{{ developer.clients }}" class="text-gray-400 bg-transparent border-none w-full" readonly type="number"></p>
+                                    <p><span class="font-semibold text-gray-300">Current Projects:</span> <input name="current_projects" value="{{ developer.current_projects }}" class="text-gray-400 bg-transparent border-none w-full" readonly></p>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-end gap-2">
+                                <button type="button" class="edit-card-btn text-[var(--primary-400)] hover:text-[var(--primary-300)]">Edit</button>
+                                <button type="submit" class="save-card-btn text-green-500 hover:text-green-400 hidden">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      
+        <div id="clients-content" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Clients</h2>
+                <button id="add-client-btn-2" class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full">
+                    Add Client
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for client in clients %}
+                <div class="bg-gray-900 rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-lg border border-gray-800">
+                    <div class="p-6">
+                        <div class="flex items-center gap-6">
+                            <img class="w-24 h-24 rounded-full object-cover border-4 border-gray-800" src="{{ client.image if client.image else 'https://via.placeholder.com/150' }}" alt="{{ client.name }}">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">{{ client.name }}</h3>
+                                <p class="text-gray-400">Joined: {{ client.join_date }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="font-bold text-lg text-white mb-2">Details</h4>
+                            <div class="text-sm text-gray-400 space-y-2">
+                                <p><span class="font-semibold text-gray-300">Projects:</span> {{ client.projects }}</p>
+                                <div>
+                                    <span class="font-semibold text-gray-300">Status:</span>
+                                    <span class="px-3 py-1 text-sm font-medium rounded-full {% if client.status == 'Active' %}bg-green-900 text-green-300{% else %}bg-gray-700 text-gray-300{% endif %}">
+                                        {{ client.status }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      
+        <div id="projects-content" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Projects</h2>
+                <button id="add-project-btn" class="bg-[var(--primary-500)] hover:bg-[var(--primary-600)] text-white font-bold py-2 px-4 rounded-full">
+                    Add Project
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {% for project in projects %}
+              <div class="bg-gray-900 rounded-xl overflow-hidden p-6">
+                <h3 class="text-xl font-bold">{{ project.name }}</h3>
+                <p class="text-sm text-gray-400 mt-2">{{ project.description }}</p>
+                <div class="mt-4">
+                  <p class="text-sm"><span class="font-bold">Owner:</span> {{ project.owner }}</p>
+                  <p class="text-sm"><span class="font-bold">Assigned Dev:</span> {{ project.assigned_dev }}</p>
+                  <p class="text-sm mt-2"><span class="font-bold">Estimated Completion:</span> {{ project.est_completion_date }}</p>
+                  <p class="text-sm"><span class="font-bold">Actual Completion:</span> {{ project.actual_completion_date }}</p>
+                </div>
+                <div class="mt-4 flex justify-end gap-2">
                     <button
-                      class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
+                      class="edit-project-btn text-[var(--primary-400)] hover:text-[var(--primary-300)]"
+                      data-id="{{ project.id }}"
+                      data-name="{{ project.name }}"
+                      data-description="{{ project.description }}"
+                      data-owner="{{ project.owner }}"
+                      data-assigned_dev="{{ project.assigned_dev }}"
+                      data-est_completion_date="{{ project.est_completion_date }}"
+                      data-actual_completion_date="{{ project.actual_completion_date }}"
                     >
                       Edit
                     </button>
-                    <button class="text-red-500 hover:text-red-400">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr class="border-t border-gray-800">
-                  <td class="p-4">Beta Inc</td>
-                  <td class="p-4 text-gray-400">contact@betainc.com</td>
-                  <td class="p-4 text-gray-400">1</td>
-                  <td class="p-4">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-full bg-gray-700 text-gray-300"
-                      >Inactive</span
-                    >
-                  </td>
-                  <td class="p-4">
-                    <button
-                      class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
-                    >
-                      Edit
-                    </button>
-                    <button class="text-red-500 hover:text-red-400">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr class="border-t border-gray-800">
-                  <td class="p-4">Gamma Ltd</td>
-                  <td class="p-4 text-gray-400">contact@gammaltd.com</td>
-                  <td class="p-4 text-gray-400">2</td>
-                  <td class="p-4">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-full bg-green-900 text-green-300"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="p-4">
-                    <button
-                      class="text-[var(--primary-400)] hover:text-[var(--primary-300)] mr-4"
-                    >
-                      Edit
-                    </button>
-                    <button class="text-red-500 hover:text-red-400">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                    <form action="{{ url_for('delete_project', project_id=project.id) }}" method="POST" class="inline">
+                      <button type="submit" class="text-red-500 hover:text-red-400">
+                        Delete
+                      </button>
+                    </form>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
         </div>
       </main>
     </div>
     <!-- Add Developer Modal -->
     <div id="add-developer-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
       <div class="relative flex flex-col bg-[#111111] dark group/design-root overflow-hidden rounded-2xl border border-neutral-800 w-full max-w-lg mx-4">
-        <div class="p-8">
-          <div class="flex justify-between items-start">
-            <h2 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Add Developer</h2>
-            <button id="close-modal-btn" class="text-neutral-500 hover:text-white">
-              <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
-              </svg>
-            </button>
-          </div>
-          <p class="text-neutral-400 mt-2">Enter the details below to add a new developer to the system.</p>
-          <div class="mt-8 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <label class="flex flex-col">
-                <p class="text-white text-sm font-medium leading-normal pb-2">Name</p>
-                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. John Doe" value="" />
-              </label>
-              <label class="flex flex-col">
-                <p class="text-white text-sm font-medium leading-normal pb-2">Job Role</p>
-                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. Frontend Developer" value="" />
-              </label>
+        <form action="{{ url_for('add_developer') }}" method="POST">
+          <div class="p-8">
+            <div class="flex justify-between items-start">
+              <h2 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Add Developer</h2>
+              <button id="close-modal-btn" type="button" class="text-neutral-500 hover:text-white">
+                <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
+                </svg>
+              </button>
             </div>
-            <label class="flex flex-col">
-              <p class="text-white text-sm font-medium leading-normal pb-2">Image URL</p>
-              <div class="flex items-center">
-                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border-t border-b border-l border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="https://example.com/image.jpg" value="" />
-                <button class="flex items-center justify-center rounded-r-lg h-12 px-4 bg-neutral-800 text-neutral-400 hover:bg-neutral-700 hover:text-white border-t border-b border-r border-neutral-800">
-                  Upload
-                </button>
+            <p class="text-neutral-400 mt-2">Enter the details below to add a new developer to the system.</p>
+            <div class="mt-8 space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Name</p>
+                  <input name="name" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. John Doe" value="" />
+                </label>
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Job Role</p>
+                  <input name="role" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. Frontend Developer" value="" />
+                </label>
               </div>
-            </label>
-            <label class="flex flex-col">
-              <p class="text-white text-sm font-medium leading-normal pb-2">Technologies</p>
-              <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. React, Tailwind CSS, Node.js" value="" />
-            </label>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <label class="flex flex-col">
-                <p class="text-white text-sm font-medium leading-normal pb-2">Joined Since</p>
-                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" type="date" value="" />
+                <p class="text-white text-sm font-medium leading-normal pb-2">Image URL</p>
+                <div class="flex items-center">
+                  <input name="image" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border-t border-b border-l border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="https://example.com/image.jpg" value="" />
+                  <button type="button" class="flex items-center justify-center rounded-r-lg h-12 px-4 bg-neutral-800 text-neutral-400 hover:bg-neutral-700 hover:text-white border-t border-b border-r border-neutral-800">
+                    Upload
+                  </button>
+                </div>
               </label>
               <label class="flex flex-col">
-                <p class="text-white text-sm font-medium leading-normal pb-2">Rating</p>
-                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" max="5" min="1" placeholder="1-5" type="number" value="" />
+                <p class="text-white text-sm font-medium leading-normal pb-2">Technologies</p>
+                <input name="tech" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. React, Tailwind CSS, Node.js" value="" />
+              </label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Joined Since</p>
+                  <input name="join_date" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" type="date" value="" />
+                </label>
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Rating</p>
+                  <input name="rating" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" max="5" min="1" placeholder="1-5" type="number" value="" />
+                </label>
+              </div>
+              <label class="flex flex-col">
+                <p class="text-white text-sm font-medium leading-normal pb-2">Current Projects</p>
+                <textarea name="current_projects" class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-24 placeholder:text-neutral-500 p-4 text-sm font-normal" placeholder="List current projects separated by commas"></textarea>
+              </label>
+              <label class="flex flex-col">
+                <p class="text-white text-sm font-medium leading-normal pb-2">Completed Projects</p>
+                <input name="completed_projects" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. 5" type="number" value="" />
               </label>
             </div>
-            <label class="flex flex-col">
-              <p class="text-white text-sm font-medium leading-normal pb-2">Current Projects</p>
-              <textarea class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-24 placeholder:text-neutral-500 p-4 text-sm font-normal" placeholder="List current projects separated by commas"></textarea>
-            </label>
-            <label class="flex flex-col">
-              <p class="text-white text-sm font-medium leading-normal pb-2">Completed Projects</p>
-              <textarea class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-24 placeholder:text-neutral-500 p-4 text-sm font-normal" placeholder="List completed projects separated by commas"></textarea>
-            </label>
+            <div class="flex justify-end gap-4 pt-8">
+              <button id="cancel-btn" type="button" class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-neutral-800 text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-neutral-700">
+                <span class="truncate">Cancel</span>
+              </button>
+              <button type="submit" class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-[#53d22c] text-[#111111] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-500">
+                <span class="truncate">Add Developer</span>
+              </button>
+            </div>
           </div>
-          <div class="flex justify-end gap-4 pt-8">
-            <button id="cancel-btn" class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-neutral-800 text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-neutral-700">
-              <span class="truncate">Cancel</span>
-            </button>
-            <button class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-[#53d22c] text-[#111111] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-500">
-              <span class="truncate">Add Developer</span>
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
     <!-- Edit Developer Modal -->
@@ -383,35 +439,24 @@
                 <h1 class="text-3xl font-bold text-white">Edit Developer</h1>
                 <p class="text-gray-400">Update the details of the selected developer.</p>
             </div>
-            <form class="space-y-6">
+            <form id="edit-developer-form" method="POST" class="space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-300" for="name">Name</label>
-                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="name" name="name" placeholder="e.g., John Doe" type="text" />
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-name" name="name" placeholder="e.g., John Doe" type="text" />
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-300" for="email">Email</label>
-                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="email" name="email" placeholder="e.g., john.doe@example.com" type="email" />
+                    <label class="block text-sm font-medium text-gray-300" for="role">Role</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-role" name="role" placeholder="e.g., Frontend Developer" type="text" />
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-300" for="phone">Phone</label>
-                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="phone" name="phone" placeholder="e.g., +1 234 567 890" type="tel" />
-                </div>
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300" for="role">Role</label>
-                        <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="role" name="role" placeholder="e.g., Frontend Developer" type="text" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300" for="hourly-rate">Hourly Rate ($)</label>
-                        <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="hourly-rate" name="hourly-rate" placeholder="e.g., 50" type="number" />
-                    </div>
+                    <label class="block text-sm font-medium text-gray-300" for="tech">Skills</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-tech" name="tech" placeholder="e.g., React, Node.js" type="text" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-300" for="status">Status</label>
-                    <select class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white focus:border-green-500 focus:ring-green-500" id="status" name="status">
+                    <select class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white focus:border-green-500 focus:ring-green-500" id="edit-status" name="status">
                         <option>Active</option>
                         <option>Inactive</option>
-                        <option>On Leave</option>
                     </select>
                 </div>
                 <div class="flex items-center justify-end space-x-4 pt-4">
@@ -422,50 +467,6 @@
         </div>
     </div>
 
-    <script>
-      // Add Developer Modal
-      const addDeveloperBtn = document.getElementById('add-developer-btn');
-      const addDeveloperModal = document.getElementById('add-developer-modal');
-      const closeModalBtn = document.getElementById('close-modal-btn');
-      const cancelBtn = document.getElementById('cancel-btn');
-
-      if (addDeveloperBtn) {
-        addDeveloperBtn.addEventListener('click', () => {
-            addDeveloperModal.classList.remove('hidden');
-        });
-      }
-
-      if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            addDeveloperModal.classList.add('hidden');
-        });
-      }
-
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', () => {
-            addDeveloperModal.classList.add('hidden');
-        });
-      }
-
-      // Edit Developer Modal
-      const editDeveloperBtns = document.querySelectorAll('.edit-developer-btn');
-      const editDeveloperModal = document.getElementById('edit-developer-modal');
-      const editCancelBtn = document.getElementById('edit-cancel-btn');
-
-      if (editDeveloperBtns) {
-          editDeveloperBtns.forEach(btn => {
-              btn.addEventListener('click', () => {
-                  editDeveloperModal.classList.remove('hidden');
-              });
-          });
-      }
-
-      if (editCancelBtn) {
-          editCancelBtn.addEventListener('click', () => {
-              editDeveloperModal.classList.add('hidden');
-          });
-      }
-    </script>
     <!-- Add Client Modal -->
     <div id="add-client-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-[#101010] p-8 rounded-2xl w-full max-w-md mx-4 relative">
@@ -475,36 +476,291 @@
               </svg>
             </button>
             <h1 class="text-2xl font-bold mb-6 text-center">Add New Client</h1>
-            <form class="space-y-6">
+            <form action="{{ url_for('add_client') }}" method="POST" class="space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-400 mb-2" for="name">Name</label>
-                    <input class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" id="name" placeholder="Client Name" type="text" />
+                    <input name="name" class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" placeholder="Client Name" type="text" />
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="w-16 h-16 rounded-full bg-[#1a1a1a] border border-[#333333] flex-shrink-0"></div>
                     <div class="flex-grow">
                         <label class="block text-sm font-medium text-gray-400 mb-2" for="image">Image</label>
-                        <input class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" id="image" placeholder="Image URL" type="text" />
+                        <input name="image" class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" placeholder="Image URL" type="text" />
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-400 mb-2" for="joined_since">Joined Since</label>
-                    <input class="form-input w-full rounded-lg h-12 px-4 text-white bg-[#1a1a1a] border border-[#333333]" id="joined_since" type="date" />
+                    <input name="join_date" class="form-input w-full rounded-lg h-12 px-4 text-white bg-[#1a1a1a] border border-[#333333]" type="date" />
+    <!-- Add Project Modal -->
+    <div id="add-project-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+      <div class="relative flex flex-col bg-[#111111] dark group/design-root overflow-hidden rounded-2xl border border-neutral-800 w-full max-w-lg mx-4">
+        <form action="{{ url_for('add_project') }}" method="POST">
+          <div class="p-8">
+            <div class="flex justify-between items-start">
+              <h2 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Add Project</h2>
+              <button id="close-project-modal-btn" type="button" class="text-neutral-500 hover:text-white">
+                <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
+                </svg>
+              </button>
+            </div>
+            <p class="text-neutral-400 mt-2">Enter the details below to add a new project.</p>
+            <div class="mt-8 space-y-6">
+              <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Project Name</p>
+                  <input name="name" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. New Website" value="" />
+              </label>
+              <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Description</p>
+                  <textarea name="description" class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-24 placeholder:text-neutral-500 p-4 text-sm font-normal" placeholder="Project description"></textarea>
+              </label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Owner</p>
+                  <input name="owner" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. Client Name" value="" />
+                </label>
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Assigned Developer</p>
+                  <input name="assigned_dev" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" placeholder="e.g. John Doe" value="" />
+                </label>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Estimated Completion Date</p>
+                  <input name="est_completion_date" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" type="date" value="" />
+                </label>
+                <label class="flex flex-col">
+                  <p class="text-white text-sm font-medium leading-normal pb-2">Actual Completion Date</p>
+                  <input name="actual_completion_date" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#53d22c] border border-neutral-800 bg-neutral-900 h-12 placeholder:text-neutral-500 px-4 text-sm font-normal" type="date" value="" />
+                </label>
+              </div>
+            </div>
+            <div class="flex justify-end gap-4 pt-8">
+              <button id="cancel-project-btn" type="button" class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-neutral-800 text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-neutral-700">
+                <span class="truncate">Cancel</span>
+              </button>
+              <button type="submit" class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-[#53d22c] text-[#111111] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-500">
+                <span class="truncate">Add Project</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Edit Project Modal -->
+    <div id="edit-project-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="w-full max-w-md rounded-2xl bg-[#111111] p-8 shadow-2xl">
+            <div class="mb-8 text-center">
+                <h1 class="text-3xl font-bold text-white">Edit Project</h1>
+                <p class="text-gray-400">Update the details of the selected project.</p>
+            </div>
+            <form id="edit-project-form" method="POST" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="name">Project Name</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-project-name" name="name" type="text" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="description">Description</label>
+                    <textarea class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-project-description" name="description"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="owner">Owner</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-project-owner" name="owner" type="text" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="assigned_dev">Assigned Developer</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-project-assigned_dev" name="assigned_dev" type="text" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="est_completion_date">Estimated Completion Date</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-project-est_completion_date" name="est_completion_date" type="date" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300" for="actual_completion_date">Actual Completion Date</label>
+                    <input class="mt-1 block w-full rounded-lg border-gray-700 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" id="edit-project-actual_completion_date" name="actual_completion_date" type="date" />
+                </div>
+                <div class="flex items-center justify-end space-x-4 pt-4">
+                    <button id="edit-project-cancel-btn" class="rounded-full px-6 py-2 text-sm font-semibold text-gray-300 transition-colors hover:bg-gray-800" type="button">Cancel</button>
+                    <button class="rounded-full bg-[#53d22c] px-6 py-2 text-sm font-bold text-black transition-transform hover:scale-105" type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const links = {
+            dashboard: document.getElementById('dashboard-link'),
+            developers: document.getElementById('developers-link'),
+            clients: document.getElementById('clients-link'),
+            projects: document.getElementById('projects-link'),
+        };
+        const contents = {
+            dashboard: document.getElementById('dashboard-content'),
+            developers: document.getElementById('developers-content'),
+            clients: document.getElementById('clients-content'),
+            projects: document.getElementById('projects-content'),
+        };
+        const addDeveloperBtn = document.getElementById('add-developer-btn');
+        const addDeveloperBtn2 = document.getElementById('add-developer-btn-2');
+        const addDeveloperModal = document.getElementById('add-developer-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const addClientBtn = document.getElementById('add-client-btn');
+        const addClientBtn2 = document.getElementById('add-client-btn-2');
+        const addClientModal = document.getElementById('add-client-modal');
+        const closeClientModalBtn = document.getElementById('close-client-modal-btn');
+        const addProjectBtn = document.getElementById('add-project-btn');
+        const addProjectModal = document.getElementById('add-project-modal');
+        const closeProjectModalBtn = document.getElementById('close-project-modal-btn');
+        const cancelProjectBtn = document.getElementById('cancel-project-btn');
+        function showContent(contentId) {
+            Object.values(contents).forEach(content => content.classList.add('hidden'));
+            if (contents[contentId]) {
+                contents[contentId].classList.remove('hidden');
+            }
+        }
+        function setActiveLink(linkId) {
+            Object.values(links).forEach(link => {
+                link.classList.remove('bg-gray-900', 'text-[var(--primary-400)]');
+                link.classList.add('hover:bg-gray-900');
+            });
+            if (links[linkId]) {
+                links[linkId].classList.add('bg-gray-900', 'text-[var(--primary-400)]');
+                links[linkId].classList.remove('hover:bg-gray-900');
+            }
+        }
+        links.dashboard.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContent('dashboard');
+            setActiveLink('dashboard');
+        });
+        links.developers.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContent('developers');
+            setActiveLink('developers');
+        });
+        links.clients.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContent('clients');
+            setActiveLink('clients');
+        });
+        links.projects.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContent('projects');
+            setActiveLink('projects');
+        });
+        // Modals
+        if (addDeveloperBtn) addDeveloperBtn.addEventListener('click', () => addDeveloperModal.classList.remove('hidden'));
+        if (addDeveloperBtn2) addDeveloperBtn2.addEventListener('click', () => addDeveloperModal.classList.remove('hidden'));
+        if (closeModalBtn) closeModalBtn.addEventListener('click', () => addDeveloperModal.classList.add('hidden'));
+        if (cancelBtn) cancelBtn.addEventListener('click', () => addDeveloperModal.classList.add('hidden'));
+        if (addClientBtn) addClientBtn.addEventListener('click', () => addClientModal.classList.remove('hidden'));
+        if (addClientBtn2) addClientBtn2.addEventListener('click', () => addClientModal.classList.remove('hidden'));
+        if (closeClientModalBtn) closeClientModalBtn.addEventListener('click', () => addClientModal.classList.add('hidden'));
+        if (addProjectBtn) addProjectBtn.addEventListener('click', () => addProjectModal.classList.remove('hidden'));
+        if (closeProjectModalBtn) closeProjectModalBtn.addEventListener('click', () => addProjectModal.classList.add('hidden'));
+        if (cancelProjectBtn) cancelProjectBtn.addEventListener('click', () => addProjectModal.classList.add('hidden'));
+        // Edit Developer Modal
+        const editDeveloperBtns = document.querySelectorAll('.edit-developer-btn');
+        const editDeveloperModal = document.getElementById('edit-developer-modal');
+        const editCancelBtn = document.getElementById('edit-cancel-btn');
+        if (editDeveloperBtns) {
+            editDeveloperBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const developerId = btn.dataset.id;
+                    const developerName = btn.dataset.name;
+                    const developerRole = btn.dataset.role;
+                    const developerTech = btn.dataset.tech;
+                    const developerStatus = btn.dataset.status;
+                    const form = document.getElementById('edit-developer-form');
+                    form.action = `/edit_developer/${developerId}`;
+                    document.getElementById('edit-name').value = developerName;
+                    document.getElementById('edit-role').value = developerRole;
+                    document.getElementById('edit-tech').value = developerTech;
+                    document.getElementById('edit-status').value = developerStatus;
+                    editDeveloperModal.classList.remove('hidden');
+                });
+            });
+        }
+        if (editCancelBtn) {
+            editCancelBtn.addEventListener('click', () => {
+                editDeveloperModal.classList.add('hidden');
+            });
+        }
+        // Edit Project Modal
+        const editProjectBtns = document.querySelectorAll('.edit-project-btn');
+        const editProjectModal = document.getElementById('edit-project-modal');
+        const editProjectCancelBtn = document.getElementById('edit-project-cancel-btn');
+        if (editProjectBtns) {
+            editProjectBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const projectId = btn.dataset.id;
+                    const form = document.getElementById('edit-project-form');
+                    form.action = `/edit_project/${projectId}`;
+                    document.getElementById('edit-project-name').value = btn.dataset.name;
+                    document.getElementById('edit-project-description').value = btn.dataset.description;
+                    document.getElementById('edit-project-owner').value = btn.dataset.owner;
+                    document.getElementById('edit-project-assigned_dev').value = btn.dataset.assigned_dev;
+                    document.getElementById('edit-project-est_completion_date').value = btn.dataset.est_completion_date;
+                    document.getElementById('edit-project-actual_completion_date').value = btn.dataset.actual_completion_date;
+                    editProjectModal.classList.remove('hidden');
+                });
+            });
+        }
+        if (editProjectCancelBtn) {
+            editProjectCancelBtn.addEventListener('click', () => {
+                editProjectModal.classList.add('hidden');
+            });
+        }
+        // Initial state
+        showContent('dashboard');
+        setActiveLink('dashboard');
+
+        document.querySelectorAll('.edit-card-btn').forEach(button => {
+            button.addEventListener('click', event => {
+                const form = event.target.closest('form');
+                form.querySelectorAll('input').forEach(input => {
+                    input.readOnly = false;
+                    input.classList.add('border', 'border-gray-700', 'rounded', 'px-2');
+                });
+                form.querySelector('.edit-card-btn').classList.add('hidden');
+                form.querySelector('.save-card-btn').classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('.developer-card-form').forEach(form => {
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const developerId = form.dataset.id;
+                const formData = new FormData(form);
+                fetch(`/edit_developer_card/${developerId}`, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        form.querySelectorAll('input').forEach(input => {
+                            input.readOnly = true;
+                            input.classList.remove('border', 'border-gray-700', 'rounded', 'px-2');
+                        });
+                        form.querySelector('.edit-card-btn').classList.remove('hidden');
+                        form.querySelector('.save-card-btn').classList.add('hidden');
+                        // Optionally, show a success message
+                    }
+                });
+            });
+        });
+      });
+    </script>
                 </div>
                 <div class="grid grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-2" for="projects">No. of Projects</label>
-                        <input class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" id="projects" placeholder="0" type="number" />
+                        <input name="projects" class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" placeholder="0" type="number" />
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-2" for="rating">Rating</label>
-                        <div class="flex items-center space-x-1">
-                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
-                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
-                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
-                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
-                            <button class="text-2xl text-gray-600 hover:text-white" type="button">★</button>
-                        </div>
+                        <input name="rating" class="form-input w-full rounded-lg h-12 px-4 placeholder:text-gray-500 bg-[#1a1a1a] border border-[#333333]" placeholder="1-5" type="number" />
                     </div>
                 </div>
                 <div class="flex justify-end pt-4">
@@ -515,22 +771,5 @@
             </form>
         </div>
     </div>
-    <script>
-        const addClientBtn = document.getElementById('add-client-btn');
-        const addClientModal = document.getElementById('add-client-modal');
-        const closeClientModalBtn = document.getElementById('close-client-modal-btn');
-
-        if (addClientBtn) {
-            addClientBtn.addEventListener('click', () => {
-                addClientModal.classList.remove('hidden');
-            });
-        }
-
-        if (closeClientModalBtn) {
-            closeClientModalBtn.addEventListener('click', () => {
-                addClientModal.classList.add('hidden');
-            });
-        }
-    </script>
   </body>
 </html>
